@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupButtons()
+        setupConstraints()
     }
     
     //==================================================
@@ -62,6 +63,68 @@ class ViewController: UIViewController {
         view.addSubview(topRightButton)
         view.addSubview(bottomLeftButton)
         view.addSubview(bottomRightButton)
+    }
+    
+    func setupConstraints() {
+        
+        // Turn off translatesAutoresizingMaskIntoConstraints
+        
+        topLeftButton.translatesAutoresizingMaskIntoConstraints = false
+        topRightButton.translatesAutoresizingMaskIntoConstraints = false
+        bottomLeftButton.translatesAutoresizingMaskIntoConstraints = false
+        bottomRightButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Height and width constraints
+        
+        let topButtonWidths = NSLayoutConstraint(item: topLeftButton, attribute: .width, relatedBy: .equal, toItem: topRightButton, attribute: .width, multiplier: 1.0, constant: 0)
+        let topButtonHeights = NSLayoutConstraint(item: topLeftButton, attribute: .height, relatedBy: .equal, toItem: topRightButton, attribute: .height, multiplier: 1.0, constant: 0)
+        let bottomButtonWidths = NSLayoutConstraint(item: bottomLeftButton, attribute: .width, relatedBy: .equal, toItem: bottomRightButton, attribute: .width, multiplier: 1.0, constant: 0)
+        let rightButtonHeights = NSLayoutConstraint(item: bottomRightButton, attribute: .height, relatedBy: .equal, toItem: topRightButton, attribute: .height, multiplier: 1.0, constant: 0)
+        
+        // Add height and width constraints to view
+        
+        view.addConstraints([topButtonWidths, topButtonHeights, bottomButtonWidths, rightButtonHeights])
+        
+        // Green top and leading constraints
+        
+        let greenLeadingConstraints = NSLayoutConstraint(item: topLeftButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0)
+        let greenTopConstraint = NSLayoutConstraint(item: topLeftButton, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0)
+        
+        // Green trailing to yellow leading constraint
+        
+        let greenToYellowConstraint = NSLayoutConstraint(item: topLeftButton, attribute: .trailing, relatedBy: .equal, toItem: topRightButton, attribute: .leading, multiplier: 1.0, constant: 0)
+        
+        // Green bottom to blue top constraint
+        
+        let greenToBlueConstraint = NSLayoutConstraint(item: topLeftButton, attribute: .bottom, relatedBy: .equal, toItem: bottomLeftButton, attribute: .top, multiplier: 1.0, constant: 0)
+        
+        // Yellow top and trailing constraints
+        
+        let yellowTopConstraint = NSLayoutConstraint(item: topRightButton, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0)
+        let yellowTrailingConstraint = NSLayoutConstraint(item: topRightButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0)
+        
+        // Blue leading and bottom constraints
+        
+        let blueLeadingConstraint = NSLayoutConstraint(item: bottomLeftButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0)
+        let blueBottomConstraint = NSLayoutConstraint(item: bottomLeftButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0)
+        
+        // Blue trailing to red leading constraint
+        
+        let blueToRedConstraint = NSLayoutConstraint(item: bottomLeftButton, attribute: .trailing, relatedBy: .equal, toItem: bottomRightButton, attribute: .leading, multiplier: 1.0, constant: 0)
+        
+        // Yellow bottom to red top constraint
+        
+        let yellowToRedConstraint = NSLayoutConstraint(item: topRightButton, attribute: .bottom, relatedBy: .equal, toItem: bottomRightButton, attribute: .top, multiplier: 1.0, constant: 0)
+        
+        // Red bottom and trailing constraints
+        
+        let redBottomConstraint = NSLayoutConstraint(item: bottomRightButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0)
+        let redTrailingConstraint = NSLayoutConstraint(item: bottomRightButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0)
+        
+        // Add constraints to view
+        
+        view.addConstraints([greenLeadingConstraints,
+            greenTopConstraint, greenToYellowConstraint, greenToBlueConstraint, yellowTopConstraint, yellowTrailingConstraint, blueLeadingConstraint, blueBottomConstraint, blueToRedConstraint, yellowToRedConstraint, redBottomConstraint, redTrailingConstraint])
     }
     
     func buttonTapped() {
